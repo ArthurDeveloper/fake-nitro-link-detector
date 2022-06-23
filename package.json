@@ -1,0 +1,21 @@
+{
+  "name": "fake-nitro-link-detector",
+  "version": "1.0.0",
+  "description": "A discord bot that detects scam links that claim to give nitro for free.",
+  "main": "src/index.js",
+  "repository": "https://github.com/arthurdeveloper/fake-nitro-link-detector",
+  "author": "ArthurDev",
+  "license": "MIT",
+  "private": false,
+  "type": "module",
+  "devDependencies": {
+    "nodemon": "^2.0.18"
+  },
+  "scripts": {
+    "dev": "nodemon --watch src/*"
+  },
+  "dependencies": {
+    "discord.js": "^13.8.1",
+    "dotenv": "^16.0.1"
+  }
+}
