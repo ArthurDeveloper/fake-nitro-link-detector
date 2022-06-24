@@ -1,5 +1,7 @@
 import commands from './commands/index.js';
+import Detector from './detector/Detector.js';
 import * as discord from 'discord.js';
+import findUrlInString from './util/findUrlsInString.js';
 
 const { Client, Intents } = discord;
 
@@ -13,9 +15,15 @@ bot.on('messageCreate', (msg) => {
         return;
     }
 
+    console.log(findUrlInString(msg.content));
+
+    if (Detector.isThereFakeLink(msg.content)) {
+        msg.reply('Gotcha, scammer!');
+        return;
+    }
+
     for (const command of commands) {
-        console.log(command)
-        if (msg.content === prefix+command.name) {
+        if (msg.content.trim().toLowerCase() === prefix+command.name) {
             command.run(msg);
         }
     }
