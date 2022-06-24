@@ -1,7 +1,7 @@
 const Ping = {
     name: 'ping',
     
-    run(ctx) {
+    run(ctx, params) {
         ctx.reply('Pong!');
     }
 }

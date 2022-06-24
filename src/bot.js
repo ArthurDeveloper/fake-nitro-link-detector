@@ -1,13 +1,15 @@
 import commands from './commands/index.js';
 import Detector from './detector/Detector.js';
 import * as discord from 'discord.js';
-import findUrlInString from './util/findUrlsInString.js';
 
 const { Client, Intents } = discord;
 
-const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+export const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+export let prefix = process.env.PREFIX ?? '!';
+export function setPrefix(newPrefix) {
+    prefix = newPrefix;
+}
 
-const prefix = process.env.PREFIX;
 console.log(String(process.env.TOKEN));
 
 bot.on('messageCreate', (msg) => {
@@ -15,18 +17,18 @@ bot.on('messageCreate', (msg) => {
         return;
     }
 
-    console.log(findUrlInString(msg.content));
-
     if (Detector.isThereFakeLink(msg.content)) {
         msg.reply('Gotcha, scammer!');
         return;
     }
 
     for (const command of commands) {
-        if (msg.content.trim().toLowerCase() === prefix+command.name) {
-            command.run(msg);
+        msg.content = msg.content.trim().toLowerCase();
+        if (msg.content.startsWith(prefix+command.name)) {
+            const params = msg.content.split(' ');
+            params.shift();
+
+            command.run(msg, params);
         }
     }
 });
-
-export default bot;

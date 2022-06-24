@@ -4,6 +4,8 @@ import intersect from '../util/intersect.js';
 const Detector = {
     isThereFakeLink(message) {
         const urls = findUrlsInString(message);
+        if (urls === null) return;
+
         const domains = urls.map(url => {
             const urlWithoutProtocol =  url.startsWith('https://') ?
                                         url.split('https://')[1] :
@@ -22,8 +24,6 @@ const Detector = {
             const size = real_domain.length;
 
             const equality_percentage = (intersection*100)/size;
-
-            console.log(equality_percentage);
 
             if (equality_percentage > 70) {
                 return true;
