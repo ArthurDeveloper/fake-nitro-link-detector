@@ -42,15 +42,26 @@ bot.on('guildCreate', (guild) => {
     Server.add(guild.name);
     servers.push({ name: guild.name, prefix: defaultPrefix });
 
-    guild.channels.cache.at(0).send(`
-Howdy! I'm FakeNitroLinkDetector, a bot who'll automatically detect scam links claiming to
+    let hasWelcomeMessageBeenSent = false;
+    guild.channels.cache.map(channel => {
+        if (channel.type === 'GUILD_TEXT' &&
+            channel.permissionsFor(guild.me).has('SEND_MESSAGES') &&
+            !hasWelcomeMessageBeenSent) {
+            channel.send(`
+@here
+Howdy!
+
+I'm FakeNitroLinkDetector, a bot who'll automatically detect scam links claiming to
 give you nitro for free.
 
 My default prefix here is \`\`!\`\`, and you can see some commands of mine with \`\`!help\`\`.
 If you forget my prefix, just mention me and I will tell you it.
 
 G'bye!
-`);
+            `);
+
+            hasWelcomeMessageBeenSent = true;
+    }});
 });
 
 bot.on('messageCreate', (msg) => {
@@ -64,7 +75,7 @@ bot.on('messageCreate', (msg) => {
         if (server.name === msg.guild.name) {
             return server.bot_prefix;
         }
-    }) ?? '!';
+    }).toString().replace(',') ?? '!';
 
     if (messageMentionsBot) {
         msg.reply(`Your server\'s prefix is \`\`${prefix}\`\`.\n
