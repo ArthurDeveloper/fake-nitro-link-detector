@@ -1,5 +1,6 @@
 import db from '../database.js';
 import { defaultPrefix } from '../bot.js';
+import { updateServerArray, addServerToServerArray } from '../bot.js';
 
 const Server = {
     retrieveAll(callback) {
@@ -9,11 +10,17 @@ const Server = {
     },
     
     add(name) {
-        const query = 'INSERT INTO servers VALUES (?, ?)';
+        console.log(defaultPrefix);
+        const query = 'INSERT INTO servers (name, bot_prefix) VALUES (?, ?)';
         db.run(query, [name, defaultPrefix], (err) => {
             if (err) {
                 console.log('Error while adding server: '+err);
             }
+        });
+
+        addServerToServerArray({
+            name,
+            prefix: defaultPrefix
         });
     },
 
@@ -22,6 +29,24 @@ const Server = {
 
         db.run(query, [server, prefix, server], (err) => {
             callback(err);
+        });
+
+        updateServerArray({
+            server,
+            newPrefix: prefix
+        });
+    },
+
+    setPunishment({ server, punishment }, callback) {
+        const query = `UPDATE servers SET punishment = ? WHERE name = ?`;
+
+        db.run(query, [punishment, server], (err) => {
+            callback(err);
+        });
+
+        updateServerArray({
+            server,
+            newPunishment: punishment
         });
     }
 }

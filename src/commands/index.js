@@ -1,9 +1,11 @@
 import Ping from './Ping.js';
 import SetPrefix from './config/SetPrefix.js';
+import SetPunishment from './config/SetPunishment.js';
 
 const commands = [
     Ping,
-    SetPrefix
+    SetPrefix,
+    SetPunishment
 ];
 
 commands.push({

@@ -19,8 +19,9 @@ function setup(db) {
     const script = `
 CREATE TABLE IF NOT EXISTS servers (
     name TEXT NOT NULL PRIMARY KEY,
-    bot_prefix TEXT NOT NULL
-);    
+    bot_prefix TEXT NOT NULL,
+    punishment TEXT
+);
 `;
     db.run(script, (err) => {
         if (err) {
