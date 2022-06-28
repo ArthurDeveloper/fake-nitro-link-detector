@@ -19,8 +19,7 @@ const Server = {
         });
 
         addServerToServerArray({
-            name,
-            prefix: defaultPrefix
+            name
         });
     },
 
