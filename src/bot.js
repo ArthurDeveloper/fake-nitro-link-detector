@@ -16,7 +16,7 @@ Server.retrieveAll((err, rows) => {
         return;
     }
 
-    servers = rows;
+    servers = rows ?? [];
 });
 
 export function updateServerArray({ 
@@ -89,7 +89,7 @@ bot.on('messageCreate', (msg) => {
         if (server.name === msg.guild.name) {
             return server.bot_prefix;
         }
-    })[0].toString() ?? '!';
+    })[0]?.toString() ?? '!';
 
     if (messageMentionsBot) {
         msg.reply(`Your server\'s prefix is \`\`${prefix}\`\`.\n
