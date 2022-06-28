@@ -1,9 +1,4 @@
 import 'dotenv/config.js';
-
-import bot from './bot.js';
-
-bot.on('ready', () => {
-    console.log('Bot running!')
-});
+import { bot } from './bot.js';
 
 bot.login(process.env.TOKEN);

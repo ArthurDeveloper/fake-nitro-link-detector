@@ -1,7 +1,8 @@
 const Ping = {
     name: 'ping',
+    description: 'Replies \'Pong!\' to you.',
     
-    run(ctx) {
+    run(ctx, params) {
         ctx.reply('Pong!');
     }
 }
