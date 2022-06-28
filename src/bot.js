@@ -3,12 +3,12 @@ import Detector from './services/Detector.js';
 import * as discord from 'discord.js';
 import Server from './services/Server.js';
 
-const { Client, Intents, DiscordAPIError } = discord;
+const { Client, Intents } = discord;
 
 export const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 export const defaultPrefix = process.env.DEFAULT_PREFIX ?? '!';
 
-export let servers;
+export let servers = [];
 
 Server.retrieveAll((err, rows) => {
     if (err) {
