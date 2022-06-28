@@ -25,12 +25,12 @@ const SetPrefix = {
                     console.log('Error while trying to change this server\'s prefix'+err);
                     return;
                 }
-
-                ctx.reply(
-                    `Prefix succefully set to ${newPrefix}\n`+
-                    `To run some commands with it, type \`\`${newPrefix}your-command\`\``
-                );
             });
+
+	    ctx.reply(
+                `Prefix succefully set to ${newPrefix}\n`+
+                `To run some commands with it, type \`\`${newPrefix}your-command\`\``
+            );
 
             return;
         }
