@@ -54,7 +54,6 @@ bot.on('ready', (ctx) => {
 
 bot.on('guildCreate', (guild) => {
     Server.add(guild.name);
-    servers.push({ name: guild.name, prefix: defaultPrefix });
 
     let hasWelcomeMessageBeenSent = false;
     guild.channels.cache.map(channel => {
